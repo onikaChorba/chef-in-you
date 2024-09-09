@@ -21,31 +21,33 @@ mongoose
 const app = express();
 app.use(express.json());
 
-app.get("/registration", (req, res) => {
-  res.send("jhgjdk");
-});
 app.post("/registration", registerValidation, async (req, res) => {
-  const errors = validationResult(req);
+  try {
+    const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    return res.status(400).json(errors.array());
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
+    }
+
+    const password = req.body.password;
+    const salt = await bcrypt.genSalt(10);
+    const passwordHas = await bcrypt.hash(password, salt);
+
+    const doc = new UserModel({
+      email: req.body.email,
+      fullName: req.body.fullName,
+      passwordHas,
+      avatarUrl: req.body.avatarUrl,
+    });
+
+    const user = doc.save();
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({
+      message: "Failed to register",
+    });
   }
-
-  const password = req.body.password;
-  const salt = await bcrypt.genSalt(10);
-  const passwordHas = await bcrypt.hash(password, salt);
-
-  const doc = new UserModel({
-    email: req.body.email,
-    fullName: req.body.fullName,
-    passwordHas,
-    avatarUrl: req.body.avatarUrl,
-  });
-
-  const user = doc.save();
-
-  res.json(user);
-  console.log(user);
 });
 
 app.listen(8000, (err) => {

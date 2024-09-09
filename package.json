@@ -1,0 +1,29 @@
+{
+  "name": "chefinyou",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start:dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onikaChorba/ChefInYou.git"
+  },
+  "author": "Onika Chorba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onikaChorba/ChefInYou/issues"
+  },
+  "homepage": "https://github.com/onikaChorba/ChefInYou#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.0",
+    "nodemon": "^3.1.4"
+  }
+}

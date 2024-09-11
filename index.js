@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import { registerValidation } from "./validations/auth.js";
 import { validationResult } from "express-validator";
 import UserModel from "./models/user.js";
+import checkAuth from "./utils/checkAuth.js";
 
 mongoose
   .connect(
@@ -45,7 +46,7 @@ app.post("/login", async (req, res) => {
     );
 
     if (!isValidPass) {
-      return res.status(404).json({
+      return res.status(403).json({
         message: "Invalid email or password",
       });
     }
@@ -54,7 +55,7 @@ app.post("/login", async (req, res) => {
       {
         _id: user._id,
       },
-      "secret123",
+      "Secret123",
       {
         expiresIn: "30d",
       }
@@ -93,7 +94,7 @@ app.post("/registration", registerValidation, async (req, res) => {
       {
         _id: user._id,
       },
-      "secret123",
+      "Secret123",
       {
         expiresIn: "30d",
       }
@@ -105,6 +106,24 @@ app.post("/registration", registerValidation, async (req, res) => {
     console.log(err);
     res.status(500).json({
       message: "Failed to register",
+    });
+  }
+});
+
+app.get("/me", checkAuth, async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({
+        message: "User is not found",
+      });
+    }
+    const { passwordHash, ...userData } = user._doc;
+    res.json({ ...userData });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "invalid access",
     });
   }
 });

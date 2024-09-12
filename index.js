@@ -36,9 +36,14 @@ app.post("/registration", registerValidation, userController.register);
 app.post("/login", loginValidation, userController.login);
 app.get("/me", checkAuth, userController.getMe);
 
-// app.get("recipes", recipeController.getAll());
-// app.get("recipes/:id", recipeController.getOne());
-app.post("/recipes", recipeCreateValidation, recipeController.create);
+app.get("/recipes", recipeController.getAll);
+app.get("/recipes/:id", recipeController.getOne);
+app.post(
+  "/recipes",
+  checkAuth,
+  recipeCreateValidation,
+  recipeController.create
+);
 // app.delete("recipes", recipeController.remove());
 // app.patch("recipes", recipeController.update());
 

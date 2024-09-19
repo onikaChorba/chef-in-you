@@ -34,6 +34,28 @@ export const getOne = async (req, res) => {
   }
 };
 
+export const remove = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const doc = await RecipeModel.findOneAndDelete({ _id: recipeId });
+
+    if (!doc) {
+      return res.status(404).json({
+        message: "Recipe not found",
+      });
+    }
+
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Recipe is not deleted",
+    });
+  }
+};
+
 export const create = async (req, res) => {
   try {
     const doc = new RecipeModel({
@@ -51,6 +73,30 @@ export const create = async (req, res) => {
     console.log(error);
     res.status(500).json({
       message: "Recipe is not created",
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const doc = await RecipeModel.updateOne(
+      { _id: recipeId },
+      {
+        title: req.body.title,
+        text: req.body.text,
+        imageUrl: req.body.imageUrl,
+        tags: req.body.tags,
+        user: req.userId,
+      }
+    );
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Recipe is not updated",
     });
   }
 };

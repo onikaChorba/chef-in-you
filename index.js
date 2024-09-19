@@ -45,7 +45,7 @@ app.post(
   recipeController.create
 );
 app.delete("/recipes/:id", checkAuth, recipeController.remove);
-// app.patch("recipes", recipeController.update());
+app.patch("/recipes/:id", checkAuth, recipeController.update);
 
 app.listen(8000, (err) => {
   if (err) {

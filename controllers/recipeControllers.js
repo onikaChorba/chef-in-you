@@ -76,3 +76,27 @@ export const create = async (req, res) => {
     });
   }
 };
+
+export const update = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const doc = await RecipeModel.updateOne(
+      { _id: recipeId },
+      {
+        title: req.body.title,
+        text: req.body.text,
+        imageUrl: req.body.imageUrl,
+        tags: req.body.tags,
+        user: req.userId,
+      }
+    );
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Recipe is not updated",
+    });
+  }
+};

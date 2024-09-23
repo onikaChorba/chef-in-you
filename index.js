@@ -38,11 +38,11 @@ app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
-  res.send("Hi user");
+  res.send("");
 });
 
 app.get("/registration", (req, res) => {
-  res.send("Hi user, registration");
+  res.send("");
 });
 
 app.post(

@@ -2,6 +2,7 @@ import { error } from "console";
 import express from "express";
 import mongoose from "mongoose";
 import multer from "multer";
+import cors from "cors";
 import {
   registerValidation,
   loginValidation,
@@ -35,10 +36,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
+app.use(cors());
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
-  res.send("");
+  res.send("Hello");
 });
 
 app.get("/registration", (req, res) => {

@@ -68,6 +68,7 @@ app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
 });
 
 app.get("/recipes", recipeController.getAll);
+app.get("/recipes/tags", recipeController.getLastTags);
 app.get("/recipes/:id", recipeController.getOne);
 app.post(
   "/recipes",

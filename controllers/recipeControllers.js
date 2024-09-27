@@ -3,11 +3,13 @@ import RecipeModel from "../models/recipe.js";
 export const getLastTags = async (req, res) => {
   try {
     const recipes = await RecipeModel.find().limit(5).exec();
+
     const tags = recipes
       .map((obj) => obj.tags)
       .flat()
       .slice(0, 5);
-    res.json(tags);
+
+    res.json({ tags });
   } catch (error) {
     console.log(error);
     res.status(500).json({

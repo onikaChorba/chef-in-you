@@ -78,9 +78,12 @@ export const create = async (req, res) => {
   try {
     const doc = new RecipeModel({
       title: req.body.title,
-      text: req.body.text,
+      description: req.body.description,
       imageUrl: req.body.imageUrl,
       tags: req.body.tags,
+      ingredients: req.body.ingredients,
+      instructions: req.body.instructions,
+      servings: req.body.servings,
       user: req.userId,
     });
 

@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-
 const RecipeSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       required: true,
     },
-    text: {
+    description: {
       type: String,
       required: true,
     },
@@ -17,6 +16,15 @@ const RecipeSchema = new mongoose.Schema(
     viewsCount: {
       type: Number,
       default: 0,
+    },
+    servings: Number,
+    ingredients: {
+      type: Array,
+      default: [],
+    },
+    instructions: {
+      type: Array,
+      default: [],
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

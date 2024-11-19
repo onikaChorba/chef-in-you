@@ -1,6 +1,6 @@
-import { error } from "console";
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import multer from "multer";
 import cors from "cors";
 import {
@@ -12,15 +12,21 @@ import {
 import { userController, recipeController } from "./controllers/index.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => {
-    console.log("DB OK");
-  })
-  .catch(() => {
-    console.log("DB error", error);
-  });
+dotenv.config();
 
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("Error connecting to MongoDB", err);
+  }
+};
+
+connectDB();
 const app = express();
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {

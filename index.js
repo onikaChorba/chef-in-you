@@ -13,9 +13,7 @@ import { userController, recipeController } from "./controllers/index.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 
 mongoose
-  .connect(
-    "mongodb+srv://onika164604:79ngXzu7QaEWjUyS@cluster0.peb7u.mongodb.net/blog"
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     console.log("DB OK");
   })
@@ -86,7 +84,7 @@ app.patch(
   recipeController.update
 );
 
-app.listen(8000, (err) => {
+app.listen(process.env.PORT || 8000, (err) => {
   if (err) {
     console.log(err);
   }

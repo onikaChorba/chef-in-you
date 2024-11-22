@@ -18,17 +18,6 @@ export const getLastTags = async (req, res) => {
   }
 };
 
-// export const getAll = async (req, res) => {
-//   try {
-//     const recipes = await RecipeModel.find().populate("user").exec();
-//     res.json(recipes);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       message: "Recipes are not found",
-//     });
-//   }
-// };
 export const getAll = async (req, res) => {
   try {
     const recipes = await RecipeModel.find().populate("user").exec();

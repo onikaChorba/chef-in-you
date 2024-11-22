@@ -33,7 +33,6 @@ export const getAll = async (req, res) => {
   try {
     const recipes = await RecipeModel.find().populate("user").exec();
 
-    // Якщо рецепти не знайдені, повертаємо 404
     if (!recipes || recipes.length === 0) {
       return res.status(404).json({
         message: "No recipes found",
@@ -42,7 +41,8 @@ export const getAll = async (req, res) => {
 
     res.json(recipes);
   } catch (error) {
-    console.error("Error fetching recipes:", error);
+    console.error("Error fetching recipes:", error.message);
+    console.error(error.stack);
 
     if (error.name === "MongoError") {
       return res.status(500).json({

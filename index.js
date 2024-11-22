@@ -13,16 +13,13 @@ import { userController, recipeController } from "./controllers/index.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 
 dotenv.config();
-
+const dbUrl = process.env.MONGODB_URL;
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://onika164604:79ngXzu7QaEWjUyS@cluster0.peb7u.mongodb.net/blog",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    );
+    await mongoose.connect(dbUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
     console.log("MongoDB connected");
   } catch (err) {

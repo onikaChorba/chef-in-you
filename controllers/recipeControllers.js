@@ -18,14 +18,40 @@ export const getLastTags = async (req, res) => {
   }
 };
 
+// export const getAll = async (req, res) => {
+//   try {
+//     const recipes = await RecipeModel.find().populate("user").exec();
+//     res.json(recipes);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       message: "Recipes are not found",
+//     });
+//   }
+// };
 export const getAll = async (req, res) => {
   try {
     const recipes = await RecipeModel.find().populate("user").exec();
+
+    // Якщо рецепти не знайдені, повертаємо 404
+    if (!recipes || recipes.length === 0) {
+      return res.status(404).json({
+        message: "No recipes found",
+      });
+    }
+
     res.json(recipes);
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching recipes:", error);
+
+    if (error.name === "MongoError") {
+      return res.status(500).json({
+        message: "Database connection error. Please try again later.",
+      });
+    }
+
     res.status(500).json({
-      message: "Recipes are not found",
+      message: "An error occurred while fetching recipes.",
     });
   }
 };

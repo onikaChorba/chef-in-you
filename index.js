@@ -75,19 +75,19 @@ app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
   });
 });
 
-app.get("/recipes", recipeController.getAll);
-app.get("/recipes/tags", recipeController.getLastTags);
-app.get("/recipes/:id", recipeController.getOne);
+app.get("/api/recipes", recipeController.getAll);
+app.get("/api/recipes/tags", recipeController.getLastTags);
+app.get("/api/recipes/:id", recipeController.getOne);
 app.post(
-  "/recipes",
+  "/api/recipes",
   checkAuth,
   handleValidationErrors,
   recipeCreateValidation,
   recipeController.create
 );
-app.delete("/recipes/:id", checkAuth, recipeController.remove);
+app.delete("/api/recipes/:id", checkAuth, recipeController.remove);
 app.patch(
-  "/recipes/:id",
+  "/api/recipes/:id",
   checkAuth,
   recipeCreateValidation,
   handleValidationErrors,

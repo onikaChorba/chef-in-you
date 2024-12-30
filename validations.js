@@ -16,7 +16,7 @@ export const loginValidation = [
 
 export const recipeCreateValidation = [
   body("title", "Input title recipe").isLength({ min: 5 }).isString(),
-  body("text", "Input text recipe").isLength({ min: 10 }).isString(),
+  //body("text", "Input text recipe").isLength({ min: 10 }).isString(),
   body("tags", "Invalid tag`s type").optional().isArray(),
   body("imgUrl", "Invalid image`s link").optional().isString(),
 ];

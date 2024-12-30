@@ -26,8 +26,6 @@ const connectDB = async () => {
 
 connectDB();
 const app = express();
-const cors = require("cors");
-app.use(cors());
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {

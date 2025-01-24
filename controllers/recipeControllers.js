@@ -52,7 +52,9 @@ export const getOne = async (req, res) => {
       { _id: recipeId },
       { $inc: { viewsCount: 1 } },
       { returnDocument: "after" }
-    ).exec();
+    )
+      .populate("user")
+      .exec();
 
     if (!recipe) {
       return res.status(404).json({ message: "Recipe is not found" });
